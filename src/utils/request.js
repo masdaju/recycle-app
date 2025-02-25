@@ -1,6 +1,4 @@
-//定制请求的实例
 
-//导入axios  npm install axios
 import axios from 'axios';
 
 import { ElMessage } from 'element-plus'
