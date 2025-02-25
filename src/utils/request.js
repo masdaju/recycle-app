@@ -14,6 +14,7 @@ instance.interceptors.request.use(
       const tokenStore = useTokenStore();
       //判断有没有token
       if(tokenStore.token){
+          //添加token到请求中
         // config.headers.Authorization = tokenStore.token
         config.headers['satoken'] = tokenStore.token;
         console.log(config.headers)
@@ -42,7 +43,6 @@ instance.interceptors.response.use(
       //操作失败
       //alert(result.data.msg?result.data.msg:'服务异常')
       ElMessage.error(result.data.msg?result.data.msg:'服务异常')
-        //清除token
       //异步操作的状态转换为失败
       return Promise.reject(result.data)
 
