@@ -28,4 +28,8 @@ npm run dev
 npm run build
 ```
 ![image](https://github.com/user-attachments/assets/884f52c8-f938-4c20-be03-d0c89b7d29ea)
+![image](https://github.com/user-attachments/assets/fbefe817-7999-4c7c-b892-c16a01349c76)
+![image](https://github.com/user-attachments/assets/e5400e6d-f436-4d36-bf04-51d85c4fa024)
+
+
 
