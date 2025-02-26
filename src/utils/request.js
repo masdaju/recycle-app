@@ -52,7 +52,6 @@ instance.interceptors.response.use(
         switch (err.response.status) {
             case 401:
                 //跳转到登录页面并且清除token
-
           const tokenStore = useTokenStore();
           tokenStore.removeToken();
           router.push('/')
@@ -68,7 +67,6 @@ instance.interceptors.response.use(
               ElMessage.error('服务器内部异常')
           //跳转到500页面
           break;
-
           default:ElMessage.error('服务异常')
           //其他情况
         }
