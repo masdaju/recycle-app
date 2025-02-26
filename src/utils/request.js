@@ -7,7 +7,6 @@ const baseURL = '/api';
 const instance = axios.create({ baseURL })
 import {useTokenStore} from '@/stores/token.js'
 //添加请求拦截器
-//1
 instance.interceptors.request.use(
     (config)=>{
       //请求前的回调
@@ -28,7 +27,7 @@ instance.interceptors.request.use(
     }
 )
 
-/* import {useRouter} from  'vue-router'
+/* import {useRouter} from 'vue-router'
 const router = useRouter(); */
 
 import router from '@/router'
@@ -46,7 +45,7 @@ instance.interceptors.response.use(
       //异步操作的状态转换为失败
       return Promise.reject(result.data)
 
-
+//   if(result.data.code===200){
     },
     err => {
         // 如果后端HttpServletResponse返回了401,则跳转到登录页面
