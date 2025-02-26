@@ -7,6 +7,7 @@ const baseURL = '/api';
 const instance = axios.create({ baseURL })
 import {useTokenStore} from '@/stores/token.js'
 //添加请求拦截器
+//1.添加token
 instance.interceptors.request.use(
     (config)=>{
       //请求前的回调
