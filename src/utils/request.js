@@ -45,7 +45,7 @@ instance.interceptors.response.use(
       //异步操作的状态转换为失败
       return Promise.reject(result.data)
 
-////   if(result.data.code===200){
+//   if(result.data.code===200){
     },
     err => {
         // 如果后端HttpServletResponse返回了401,则跳转到登录页面
