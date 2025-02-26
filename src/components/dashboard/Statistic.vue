@@ -1,12 +1,6 @@
 <template>
   <div class="app-container">
     <div class="page-content">
-      <h3>已回收的废品</h3>
-      <h4>{{"总计："+wasteType.reduce((sum, item) => sum + item.countNum, 0)}}</h4>
-      <div class="chart-container" ref="chartRef2"></div>
-      <h3>所有废品</h3>
-      <h4>{{"总计："+allWasteType.reduce((sum, item) => sum + item.countNum, 0)}}</h4>
-      <div class="chart-container" ref="chartRef1"></div>
       <div class="statistic-container">
         <h4>每月回收量统计</h4>
         <!-- 年份选择器 -->
@@ -21,6 +15,12 @@
         <!-- 图表容器 -->
         <div class="chart-container" ref="chartRef3"></div>
       </div>
+      <h3>已回收的废品</h3>
+      <h4>{{"总计："+wasteType.reduce((sum, item) => sum + item.countNum, 0)}}</h4>
+      <div class="chart-container" ref="chartRef2"></div>
+      <h3>所有废品</h3>
+      <h4>{{"总计："+allWasteType.reduce((sum, item) => sum + item.countNum, 0)}}</h4>
+      <div class="chart-container" ref="chartRef1"></div>
     </div>
   </div>
 </template>

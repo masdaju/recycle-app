@@ -40,7 +40,6 @@ instance.interceptors.response.use(
           console.log(result.data)
         return result.data;
       }
-
       //操作失败
       //alert(result.data.msg?result.data.msg:'服务异常')
       ElMessage.error(result.data.msg?result.data.msg:'服务异常')
@@ -52,16 +51,38 @@ instance.interceptors.response.use(
     },
     err => {
         // 如果后端HttpServletResponse返回了401,则跳转到登录页面
-      if(err.response.status===401){
-        ElMessage.error(err.response.data.msg?err.response.data.msg:'请先登录')
-          //清除token
+        switch (err.response.status) {
+            case 401:
+                //跳转到登录页面并且清除token
           const tokenStore = useTokenStore();
           tokenStore.removeToken();
-          //跳转到登录页面
           router.push('/')
-      }else{
-        ElMessage.error('服务异常')
-      }
+                ElMessage.error('异常登录')
+          break;
+          case 429:
+              ElMessage.error('服务繁忙')
+          break;
+          case 404:
+              ElMessage.error('找不到该资源')
+          break;
+          case 500:
+              ElMessage.error('服务器内部异常')
+          //跳转到500页面
+          break;
+          default:ElMessage.error('服务异常')
+          //其他情况
+        }
+
+      // if(err.response.status===401){
+      //   ElMessage.error(err.response.data.msg?err.response.data.msg:'请先登录')
+      //     //清除token
+      //     const tokenStore = useTokenStore();
+      //     tokenStore.removeToken();
+      //     //跳转到登录页面
+      //     router.push('/')
+      // }else{
+      //   ElMessage.error('服务异常')
+      // }
       return Promise.reject(err);//异步的状态转化成失败的状态
     }
 )

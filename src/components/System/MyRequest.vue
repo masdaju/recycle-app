@@ -231,7 +231,7 @@ const willdisable = (id) => {
 };
 const toWasteSelect = async () => {
   await router.push({
-    path: '/home',
+    path: '/addRequest',
     query: {
       request: form.value.wid,//废品Id
       visible: true, // 显示按钮

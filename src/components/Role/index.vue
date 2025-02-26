@@ -36,7 +36,7 @@
 
       <el-table-column prop="status" label="状态">
         <template #default="scope">
-          {{ scope.row.status === 0 ? '启用' : '禁用' }}
+          {{ scope.row.status === 0 ? '禁用' : '启用' }}
           </template>
       </el-table-column>
       <el-table-column prop="name" label="角色名称"  />

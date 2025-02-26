@@ -26,7 +26,7 @@
           添加
         </el-button>
         <el-button type="primary" style="margin-left: 16px"  v-if="route.query.visible" @click="getNewWid">
-          修改
+          确定修改废品
         </el-button>
       </div>
     </div>

@@ -48,7 +48,7 @@
       <el-divider>其他信息</el-divider>
       <el-descriptions border column="2">
 
-        <el-descriptions-item label="登录设备">
+        <el-descriptions-item label="登录平台">
           {{ userInfoStore.info.saTokenInfo.loginDevice || '无' }}
         </el-descriptions-item>
         <el-descriptions-item label="登录类型">
