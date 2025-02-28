@@ -16,7 +16,7 @@
       <el-menu-item index="7" :disabled="!userInfoStore.info.resource.includes('addRequest')">
         <el-icon><User /></el-icon>
         申请页面</el-menu-item>
-      <el-menu-item index="2" :disabled="!userInfoStore.info.resource.includes('userInfo')">
+      <el-menu-item index="2" >
         <el-icon><User /></el-icon>
         个人信息</el-menu-item>
       <el-menu-item index="3" :disabled="!userInfoStore.info.resource.includes('chat')" >
