@@ -23,9 +23,9 @@
                   <el-icon><IconMenu /></el-icon>
                   <span>系统管理</span>
                 </template>
-                <el-menu-item index="/system/resources">资源管理</el-menu-item>
-                <el-menu-item index="/system/role" >角色管理</el-menu-item>
-                <el-menu-item index="/system/user">用户管理</el-menu-item>
+                <el-menu-item index="/system/resources" :disabled="!userInfoStore.info.resource.includes('resourceManage')" >资源管理</el-menu-item>
+                <el-menu-item index="/system/role" :disabled="!userInfoStore.info.resource.includes('roleManage')">角色管理</el-menu-item>
+                <el-menu-item index="/system/user" :disabled="!userInfoStore.info.resource.includes('userManage')">用户管理</el-menu-item>
               </el-sub-menu>
 
 

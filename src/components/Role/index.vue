@@ -160,8 +160,9 @@ const handleCheck = () => {
   if (treeRef.value) {
     const checkedNodes = treeRef.value.getCheckedNodes(false, true);
     leafIds.value = checkedNodes
-        .filter(node => !node.children || node.children.length === 0)
+        // .filter(node => !node.children || node.children.length === 0)
         .map(node => node.id);
+
     currentRole.value.resId= leafIds.value
     newRole.value.resId=leafIds.value
     console.log('Selected leaf node IDs:', currentRole.value);
@@ -170,6 +171,7 @@ const handleCheck = () => {
 }
 
 const edite = async (role) => {
+  console.log(role)
   currentRole.value = { ...role }; // 先复制角色数据
   editRoleDialogVisible.value = true; // 打开编辑对话框
 
