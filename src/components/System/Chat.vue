@@ -1,5 +1,16 @@
 <template>
   <div class="chat-container">
+    <!-- 添加搜索区域 -->
+    <div class="search-area">
+      <el-input v-model="searchUserId" placeholder="输入用户ID搜索" style="width: 200px;" />
+      <el-button type="primary" @click="searchUser">搜索</el-button>
+      <div v-if="searchResult">
+        <p>搜索结果:</p>
+        <p>账号: {{ searchResult.account }}</p>
+        <p>头像: <el-avatar :src="searchResult.avatarUrl || defaultAvatar" style="width: 50px; height: 50px;" @click="gotoChat(searchResult.account)"/></p>
+        <!-- 可以根据需要添加更多显示字段 -->
+      </div>
+    </div>
     <el-row>
       <!-- 用户列表 -->
       <el-col :span="8" class="user-list-container">
@@ -85,6 +96,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getRelationListService, saveMessage, getMessage,addRelationService,toggleLongTermContactService} from "@/api/chat.js";
+import{getUserById} from "@/api/user.js";
 import useUserInfoStore from "@/stores/userInfo.js";
 import { ElMessage } from "element-plus";
 import { useRoute } from 'vue-router';
@@ -228,6 +240,35 @@ const filterUsers = () => {
   }
   console.log(filteredUsers.value)
 };
+
+
+
+const searchUserId = ref(''); // 用户输入的搜索ID
+const searchResult = ref(null); // 搜索结果
+
+const searchUser = async () => {
+  if (!searchUserId.value) {
+    searchResult.value = null;
+    return;
+  }
+
+  try {
+    const result = await getUserById(searchUserId.value);
+    searchResult.value = result.data;
+  } catch (error) {
+    console.error('Error fetching user by ID:', error);
+    ElMessage.error('搜索用户失败');
+    searchResult.value = null;
+  }
+};
+
+
+const gotoChat = async(user) => {
+  startChat(user)
+  await addRelationService(user)
+}
+
+
 
 onMounted(() => {
   userList();

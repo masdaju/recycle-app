@@ -22,6 +22,8 @@
           批量删除
         </el-button>
         <el-button type="primary" @click="showAdd">添加</el-button>
+        <el-button type="primary" @click="addWasteType">添加分类</el-button>
+        <el-button type="primary" @click="delWasteType">删除分类</el-button>
       </div>
 
     </div>
@@ -120,7 +122,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import {ElMessage, ElMessageBox} from "element-plus";
-import {getWastePage, getWasteType, delWasteByIdsService,addWasteService,updateWasteService,createWasteType} from "@/api/waste.js";
+import {getWastePage, getWasteType, delWasteByIdsService,addWasteService,updateWasteService,createWasteTypeService,delWasteTypeService  } from "@/api/waste.js";
 import {Plus, Search} from "@element-plus/icons-vue";
 import { formatDate } from "@/utils/day.js";
 
@@ -158,6 +160,36 @@ const handleFileChange = (uploadFile) => {
   console.log(rawFile.value)
   file.value = uploadFile.raw; // 获取原始文件
 };
+const addWasteType = async ()=>{
+   let name = prompt("输入分类名称")
+  console.log(name)
+  await createWasteTypeService({name: name})
+  await getWasteTypeList()
+}
+const delWasteType =()=>{
+      ElMessageBox.confirm(
+    '确定要删除吗?',
+    '提示',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  ).then(async () => {
+    await delWasteTypeService(classifyId.value)
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+    await getWasteTypeList()
+  }).catch(() => {
+    ElMessage({
+      type: 'info',
+      message: '已取消删除',
+    })
+  })
+}
+
 const clearForm = () => { formData.value = {name: "", description: "", cid: "", price: "", unit: "", image: ""};
   file.value= null;
   };

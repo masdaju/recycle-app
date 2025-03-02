@@ -6,8 +6,11 @@ export const getWastePage = (params) => {
 export const getWasteType = (params) => {
     return request.get(`/waste-classify`, {params:params})
 }
-export const createWasteType = (data) => {
+export const createWasteTypeService = (data) => {
     return request.post(`/waste-classify/create`, data)
+}
+export const delWasteTypeService = (data) => {
+    return request.post(`/waste-classify/delete`, data)
 }
 export const addWasteRequestService = (data) => {
     return request.post(`/waste-requests/create`, data)

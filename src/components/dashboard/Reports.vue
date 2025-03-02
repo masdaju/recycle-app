@@ -47,7 +47,7 @@
           <span style="flex: 1; text-align: right;">{{ item.wasteName }}:</span>
           <el-input
               v-model="map[item.wasteId]"
-              placeholder="请输入数量"
+              placeholder="请输入数量/质量"
               style="flex: 2; margin-left: 10px;"
               @input="onQuantityInput(item.wasteId)"
               @blur="validateAndFormatQuantity(item.wasteId)"

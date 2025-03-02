@@ -54,7 +54,7 @@
         <el-descriptions-item label="登录类型">
           {{ userInfoStore.info.saTokenInfo.loginType || '无' }}
         </el-descriptions-item>
-        <el-descriptions-item label="Token 过期时间 (秒)">
+        <el-descriptions-item label="生涯">
           {{ "您一共在平台回收了总价值为"+userInfoStore.info.amount+"员的废品" || '无' }}
         </el-descriptions-item>
       </el-descriptions>

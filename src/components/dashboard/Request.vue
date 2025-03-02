@@ -240,7 +240,7 @@ const submitForm = async () => {
           ElMessage.success("处理成功");
           DialogVisible.value = false;
           await getRequests(); // 重新获取数据
-          await setNotification({message:"你的申请已被处理",userId:formData.value.userId})
+          await setNotification({message:"你的申请已被处理ID为"+formData.value.collectorId+"的用户处理",userId:formData.value.userId})
           await setNotification({message:"你被安排处理用户ID为"+formData.value.userId+"的任务",userId:formData.value.collectorId})
         } else {
           ElMessage.error(response.msg);

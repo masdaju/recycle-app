@@ -56,7 +56,7 @@
     <el-dialog v-model="addUserDialogVisible" title="新增用户" width="30%" center>
       <el-form :model="newUser" label-width="100px">
         <el-form-item label="启用状态">
-          <el-switch v-model="newUser.status" active-value="1" inactive-value="0" />
+          <el-switch v-model="newUser.status" :active-value="1" :inactive-value="0" />
         </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="newUser.name" />
@@ -93,19 +93,13 @@
     <el-dialog v-model="editUserDialogVisible" title="编辑用户" width="30%" center>
       <el-form :model="currentUser" label-width="100px">
         <el-form-item label="启用状态">
-          <el-switch v-model="currentUser.status" active-value="1" inactive-value="0" />
+          <el-switch v-model="currentUser.status" :active-value="1" :inactive-value="0" />
         </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="currentUser.name" />
         </el-form-item>
         <el-form-item label="账号">
           <el-input v-model="currentUser.account" />
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="currentUser.password" type="password" />
-        </el-form-item>
-        <el-form-item label="手机号">
-          <el-input v-model="currentUser.mobile" />
         </el-form-item>
         <el-form-item label="角色">
           <el-select v-model="currentUser.roleId" placeholder="请选择角色">
@@ -213,6 +207,7 @@ const addUser = async () => {
 };
 
 const edite = (user) => {
+  console.log(user)
   currentUser.value = { ...user }; // 复制用户信息
   editUserDialogVisible.value = true; // 打开编辑对话框
 };
