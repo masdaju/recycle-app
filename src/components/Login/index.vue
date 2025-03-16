@@ -58,7 +58,7 @@
       </el-form-item>
       <!-- 登录按钮 -->
       <el-form-item>
-        <el-button class="button" type="primary" auto-insert-space @click="submitForm">登录</el-button>
+        <el-button class="button" type="primary" auto-insert-space :disabled="!(formData.account&&formData.password)"  @click="submitForm">登录</el-button>
       </el-form-item>
       <el-form-item class="flex">
         <el-link type="info" :underline="false" @click="isRegister = true; clearRegisterData()">
@@ -81,6 +81,7 @@ import useUserInfoStore from '@/stores/userInfo.js'
 const userInfoStore = useUserInfoStore();
 const isRegister = ref(false)
 const router = useRouter()
+
 const registerData = ref({
   account: '',
   password: '',
@@ -134,7 +135,6 @@ const rules = {
 import { useTokenStore } from '@/stores/token.js'
 const tokenStore = useTokenStore()
 const submitForm = async () => {
-
   let result = await login(formData.value)
   ElMessage.success(result.data.code === 200 ? result.data.data : '登录成功')
   tokenStore.setToken(result.data.saTokenInfo.tokenValue)
