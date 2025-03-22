@@ -102,6 +102,7 @@
             :on-remove="handleRemove"
             :on-change="handleFileChange"
             :limit="1"
+            accept=".png,.jpg,.jpeg"
             :auto-upload="false"
         >
           <el-icon><Plus /></el-icon>

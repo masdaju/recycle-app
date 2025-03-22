@@ -67,6 +67,7 @@
           :on-change="handleFileChange"
           :limit="1"
           :auto-upload="false"
+          accept=".png,.jpg,.jpeg"
       >
         <el-icon><Plus /></el-icon>
       </el-upload>
