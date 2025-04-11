@@ -106,6 +106,7 @@
 
       <el-form-item>
         <el-button type="primary" @click="submitForm">提交</el-button>
+        <el-button @click="NotPass">不处理</el-button>
         <el-button @click="DialogVisible = false">取消</el-button>
         </el-form-item>
       </el-form>
@@ -130,7 +131,7 @@
 import { ref } from "vue";
 import { formatDate } from "@/utils/day.js";
 import { getWasteRequestByStatus } from "@/api/waste.js";
-import {resolveRequestService} from "@/api/transportschedule.js";
+import {resolveRequestService,NotPassService} from "@/api/transportschedule.js";
 //获取回收员列表可以通过账户名继续搜索
 import {getCollectorList} from "@/api/user.js";
 import {getVehicleService} from "@/api/vehicle.js";
@@ -229,17 +230,37 @@ const getStatusLabel = (status) => {
       return "处理中";
     case 2:
       return "已完成";
+    case 3:
+      return "已拒绝";
     default:
       return "未知状态";
   }
 };
+const NotPass= async ()=>{
+
+  try {
+    let res = await NotPassService(formData.value.requestId)
+    if (res.code === 200) {
+      ElMessage.success("操作成功");
+      DialogVisible.value = false; // 关闭对话框
+      await setNotification({message:"你的id为"+formData.value.requestId+"的申请已被拒绝",userId:formData.value.userId})
+    }else {
+      ElMessage.error(res.msg);
+    }
+  }catch (error){
+    console.error(error)
+  }finally {
+    await getVehicleData()
+    await getRequests(); // 重新获取数据
+  }
+
+}
 const submitForm = async () => {
       try {
         const response = await resolveRequestService(formData.value);
         if (response.code === 200) {
           ElMessage.success("处理成功");
           DialogVisible.value = false;
-          await getRequests(); // 重新获取数据
           await setNotification({message:"你的申请已被处理ID为"+formData.value.collectorId+"的用户处理",userId:formData.value.userId})
           await setNotification({message:"你被安排处理用户ID为"+formData.value.userId+"的任务",userId:formData.value.collectorId})
         } else {
@@ -249,6 +270,7 @@ const submitForm = async () => {
         console.error(error);
         ElMessage.error("处理失败");
       }finally {
+        await getRequests();
         await getVehicleData()
       }
 }
@@ -303,7 +325,7 @@ const onCurrentChange = (page) => {
 };
 getCollectorData()
 getVehicleData()
-getRequests(); // 初始化请求
+getRequests();
 </script>
 
 <style scoped>

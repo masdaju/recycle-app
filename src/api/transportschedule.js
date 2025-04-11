@@ -4,6 +4,10 @@ export  const resolveRequestService = (data) => {
     return request.post('transport-schedules/create',data)
 }
 
+export const NotPassService = (id) => {
+    return request.post('transport-schedules/notPass',null,{params: {id:id}})
+}
+
 export const getTransportSchedule = (params) => {
     return request.get('/transport-schedules',{params:params})
 }

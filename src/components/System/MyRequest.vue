@@ -298,6 +298,8 @@ const getStatusLabel = (status) => {
       return "处理中";
     case 2:
       return "已完成";
+    case 3:
+      return "被拒绝";
     default:
       return "未知状态";
   }

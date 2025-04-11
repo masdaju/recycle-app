@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-window.top.open("http://localhost:9000/#/dashboard/home")
+window.top.open("http://122.226.59.19:55951/console/")
 
 </script>
 

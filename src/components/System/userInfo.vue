@@ -249,6 +249,7 @@ const uploadAvatar = async () => {
  const res =await uploadAvatarService(formData)
   if (res.code === 200) {
     userInfoStore.info.avatarUrl = res.msg;
+    window.location.reload()
     ElMessage.success("头像修改成功")
   }
 }

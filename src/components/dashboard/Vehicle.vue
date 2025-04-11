@@ -182,7 +182,7 @@ const saveVehicle = async () => {
     ElMessage.success('操作成功')
     dialogVisible.value = false
     editDialogVisible.value = false
-    getVehicleData() // 刷新数据
+    await getVehicleData() // 刷新数据
   } else {
     ElMessage.error(response.msg)
   }

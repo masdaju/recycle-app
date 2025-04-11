@@ -234,6 +234,7 @@ const addWaste = async () => {
       ElMessage.success("添加成功");
       drawerVisible.value = false;
       clearForm();
+      window.location.reload()
       await getData(); // 重新获取数据
     } else {
       ElMessage.error(response.msg);
@@ -252,16 +253,17 @@ const updateWaste = async () => {
   try {
     const response = await updateWasteService(form2);
     if (response.code === 200) {
-      ElMessage.success("添加成功");
+      ElMessage.success("修改成功");
       drawerVisible.value = false;
       clearForm();
       await getData(); // 重新获取数据
+      window.location.reload()
     } else {
       ElMessage.error(response.msg);
     }
   } catch (error) {
     console.error(error);
-    ElMessage.error("添加失败");
+    ElMessage.error("修改失败");
   }
 };
 

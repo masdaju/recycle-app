@@ -15,12 +15,16 @@
         <!-- 图表容器 -->
         <div class="chart-container" ref="chartRef3"></div>
       </div>
-      <h3>已回收的废品</h3>
+      <h3>已完成的单数</h3>
       <h4>{{"总计："+wasteType.reduce((sum, item) => sum + item.countNum, 0)}}</h4>
       <div class="chart-container" ref="chartRef2"></div>
-      <h3>所有废品</h3>
+      <h3>接收的单数</h3>
       <h4>{{"总计："+allWasteType.reduce((sum, item) => sum + item.countNum, 0)}}</h4>
       <div class="chart-container" ref="chartRef1"></div>
+      <h3>回收质量</h3>
+      <h4>{{"总计："+messageType.reduce((sum, item) => sum + item.quantity, 0)}}</h4>
+      <div class="chart-container" ref="chartRef4"></div>
+
     </div>
   </div>
 </template>
@@ -28,7 +32,7 @@
 <script setup>
 import { ref, onMounted, nextTick } from 'vue';
 import * as echarts from 'echarts';
-import {getStatistic, getAllStatistic, getStatisticByMonth} from "@/api/statistic.js";
+import {getStatistic, getAllStatistic, getStatisticByMonth,getMessByType} from "@/api/statistic.js";
 
 // 用于第一个图表的引用和数据
 const chartRef2 = ref(null);
@@ -220,9 +224,53 @@ const drawChart1 = () => {
     });
   });
 };
+const chartRef4 = ref(null)
+const messageType = ref([])
 
+const refreshMessages = async () => {
+  try {
+    let res = await getMessByType();
+    messageType.value = res.data;
+    drawChart4();
+  } catch (error) {
+    console.error('获取消息统计失败:', error);
+    ElMessage.error('获取消息统计数据失败');
+  }
+};
+
+const drawChart4 = () => {
+  const option4 = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' }
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: messageType.value.map(item => item.name),
+    },
+    yAxis: { type: 'value' },
+    series: [{
+      data: messageType.value.map(item => item.quantity),
+      type: 'bar'
+    }]
+  };
+
+  nextTick(() => {
+    const chartDom4 = chartRef4.value;
+    const myChart4 = echarts.init(chartDom4);
+    window.addEventListener('resize', () => myChart4.resize());
+    myChart4.setOption(option4);
+  });
+};
 
 onMounted(() => {
+  refreshMessages();
   refreshByMonth();
   refresh();
   refreshAll();

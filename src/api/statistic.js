@@ -11,3 +11,7 @@ export const getAllStatistic = () => {
 export const getStatisticByMonth = (year) => {
     return request.get(`/statistic/totalByMonth`,{params:{year:year}})
 }
+
+export const getMessByType = () => {
+    return request.get(`/statistic/getMessByType`)
+}
