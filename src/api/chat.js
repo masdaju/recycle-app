@@ -7,7 +7,9 @@ export const getMessage = (params) => {
     return request.get('/getChatMessage', {params:params})
 }
 
-
+export const getCollectorName = (requestId) => {
+    return request.get('/sys-user/getCollectorName', {params: {requestId:requestId}})
+}
 export const getRelationListService = () => {
     return request.get('/getMyRelationship')
 }

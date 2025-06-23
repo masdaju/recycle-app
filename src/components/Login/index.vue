@@ -139,6 +139,7 @@ const submitForm = async () => {
   ElMessage.success(result.data.code === 200 ? result.data.data : '登录成功')
   tokenStore.setToken(result.data.saTokenInfo.tokenValue)
   userInfoStore.setInfo(result.data)
+
   // console.log()
   router.push('/home')
 }

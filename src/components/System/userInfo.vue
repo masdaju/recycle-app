@@ -9,7 +9,7 @@
                 size="large"
             />
             <h2>{{ userInfoStore.info.name || '未知用户' }}</h2>
-            <h2>   {{ "金额："+userInfoStore.info.amount }}</h2>
+            <h2>   {{ "金额："+money }}</h2>
           </span>
 
           <template #dropdown>
@@ -55,7 +55,7 @@
           {{ userInfoStore.info.saTokenInfo.loginType || '无' }}
         </el-descriptions-item>
         <el-descriptions-item label="生涯">
-          {{ "您一共在平台回收了总价值为"+userInfoStore.info.amount+"员的废品" || '无' }}
+          {{ "您一共在平台回收了总价值为"+money+"员的废品" || '无' }}
         </el-descriptions-item>
       </el-descriptions>
       <el-divider>修改头像</el-divider>
@@ -219,9 +219,10 @@ const uploadRef = ref();
 const img= ref();
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
+const money =ref()
 const amount = async () => {
   let res = await fetchAmount(userInfoStore.info.id)
-  userInfoStore.info.amount = res.data
+  money.value=res.data
 }
 amount()
 const handleRemove = (file) => {
@@ -238,10 +239,10 @@ const handleFileChange = (uploadFile) => {
 const handleLogout = async () => {
   console.log(userInfoStore.info.id)
   let result = await logout(userInfoStore.info.id);
-  ElMessage.success(result.code===200 ? result.msg : '退出成功')
-  userInfoStore.removeInfo()//清除用户信息
+  ElMessage.success('退出成功')
   tokenStore.removeToken()//清除token信息
-  router.push('/')
+  await router.push('/')
+  userInfoStore.removeInfo()//清除用户信息
 }
 const uploadAvatar = async () => {
   const formData = new FormData();

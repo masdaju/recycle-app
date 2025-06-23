@@ -257,7 +257,9 @@ const updateWaste = async () => {
       drawerVisible.value = false;
       clearForm();
       await getData(); // 重新获取数据
-      window.location.reload()
+      if (form2.get("file")) {
+        window.location.reload()
+      }
     } else {
       ElMessage.error(response.msg);
     }

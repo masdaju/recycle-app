@@ -240,7 +240,7 @@ const submitForm = () => {
         if (res.code === 200) {
           ElMessage.success("添加成功");
           drawer.value = false;
-          getData(); // 重新加载数据
+          await getData(); // 重新加载数据
         } else {
           ElMessage.error(res.message);
         }

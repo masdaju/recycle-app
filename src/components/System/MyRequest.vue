@@ -55,7 +55,7 @@
       </el-table-column>
       <el-table-column prop="address" label="地址" align="center" />
       <el-table-column prop="remark" label="备注" align="center" />
-      <el-table-column label="操作" width="200" fixed="right">
+      <el-table-column label="操作" width="300" fixed="right">
         <template #default="scope">
           <el-button size="small" type="primary" ref="" :disabled="willdisable(scope.row.requestId)||scope.row.status!==0"   @click="updateWasteRequest(scope.row)"  class="action-button">修改</el-button>
           <el-button
@@ -64,6 +64,8 @@
           >
             提交反馈
           </el-button>
+          <el-button size="small" type="primary" v-if="scope.row.status === 1||scope.row.status === 2"
+                     @click="contactCollector(scope.row.requestId)">联系回收员</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -146,6 +148,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
+import {getCollectorName} from "@/api/chat.js";
 import {MyWasteRequestService, deleteWasteRequestService, updateWasteRequestService} from "@/api/waste.js";
 import {addFeedback} from "@/api/feedback.js";
 import { formatDate } from "@/utils/day.js";
@@ -239,6 +242,17 @@ const toWasteSelect = async () => {
     },
   });
 }
+
+const contactCollector = async (id) => {
+  let  res = await getCollectorName(id)
+   await router.push({
+     path: '/Chat',
+     query: {
+       username: res.data,
+     },
+   });
+}
+
 const submitForm = async () => {
   try {
     if (route.query.wid){

@@ -3,7 +3,9 @@
 </template>
 
 <script setup>
-window.top.open("http://122.226.59.19:55951/console/")
+const url = window.location.href.trim().split("/")[2]
+console.log(url)
+window.top.open("https://"+url+"/console/")
 
 </script>
 
